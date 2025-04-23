@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: repsy_db
+      POSTGRES_USER: furkan
+      POSTGRES_PASSWORD: ates
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - repsy-net
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    networks:
+      - repsy-net
+
+networks:
+  repsy-net:
+
+volumes:
+  postgres-data:
+  minio-data:
