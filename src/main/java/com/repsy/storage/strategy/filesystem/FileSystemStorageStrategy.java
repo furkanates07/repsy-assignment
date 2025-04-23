@@ -1,6 +1,7 @@
 package com.repsy.storage.strategy.filesystem;
 
 import com.repsy.storage.strategy.StorageStrategy;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,8 @@ import java.nio.file.*;
 @Component
 public class FileSystemStorageStrategy implements StorageStrategy {
 
-    private final Path root = Paths.get(System.getProperty("user.home"), "Desktop", "repsy_storage");
+    @Value("${storage.root-path}")
+    private Path root;
 
     @Override
     public void saveFile(String packageName, String version, MultipartFile file, String fileName) throws Exception {
