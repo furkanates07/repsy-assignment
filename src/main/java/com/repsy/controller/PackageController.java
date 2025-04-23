@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("api")
 public class PackageController {
@@ -17,22 +19,36 @@ public class PackageController {
     private PackageService packageService;
 
     @PostMapping("/{packageName}/{version}")
-    public ResponseEntity<String> deployPackage(
+    public ResponseEntity<Object> deployPackage(
             @PathVariable String packageName,
             @PathVariable String version,
             @RequestParam("package") MultipartFile packageFile,
             @RequestParam("meta") MultipartFile metaFile) {
 
         try {
+            String fileName = packageFile.getOriginalFilename();
+            long fileSize = packageFile.getSize();
+
             packageService.deployPackage(packageName, version, packageFile, metaFile);
-            return ResponseEntity.ok("Package deployed successfully.");
+
+            return ResponseEntity.status(201).body(Map.of(
+                    "message", "Package deployed successfully.",
+                    "packageName", packageName,
+                    "version", version,
+                    "fileName", fileName,
+                    "fileSize", fileSize
+            ));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to deploy package: " + e.getMessage());
+            return ResponseEntity.status(500).body(Map.of(
+                    "message", "Failed to deploy package: " + e.getMessage(),
+                    "packageName", packageName,
+                    "version", version
+            ));
         }
     }
 
     @GetMapping("/{packageName}/{version}/{fileName}")
-    public ResponseEntity<Resource> downloadPackage(
+    public ResponseEntity<Object> downloadPackage(
             @PathVariable String packageName,
             @PathVariable String version,
             @PathVariable String fileName) {
@@ -47,7 +63,12 @@ public class PackageController {
                     .body(fileResource);
 
         } catch (Exception e) {
-            return ResponseEntity.status(404).build();
+            return ResponseEntity.status(404).body(Map.of(
+                    "message", "File not found",
+                    "packageName", packageName,
+                    "version", version,
+                    "fileName", fileName
+            ));
         }
     }
 }
