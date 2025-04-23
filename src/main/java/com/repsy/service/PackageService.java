@@ -3,6 +3,7 @@ package com.repsy.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.repsy.config.StorageConfig;
 import com.repsy.model.Package;
+import com.repsy.repository.PackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -66,6 +67,11 @@ public class PackageService {
                 pkg.setStorageType(storageConfig.getStorageStrategy());
                 pkg.setCreatedAt(LocalDateTime.now());
                 pkg.setUpdatedAt(pkg.getCreatedAt());
+            }
+
+            if (packageRepository.existsByNameAndVersionAndStorageType(
+                    pkg.getName(), pkg.getVersion(), pkg.getStorageType())) {
+                throw new IllegalStateException("Package with this name, version, and storage type already exists.");
             }
 
             storageService.save(packageName, version, packageFile, packageName + ".rep");

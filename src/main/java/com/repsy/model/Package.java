@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 @Table(
         name = "packages",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"name", "version", "storageType"})
 )
 public class Package {
 
