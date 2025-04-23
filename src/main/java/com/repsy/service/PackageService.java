@@ -27,6 +27,31 @@ public class PackageService {
 
     public void deployPackage(String packageName, String version, MultipartFile packageFile, MultipartFile metaFile) throws Exception {
         try {
+            if (packageName == null || packageName.isBlank()) {
+                throw new IllegalArgumentException("Package name must not be empty.");
+            }
+            if (version == null || version.isBlank()) {
+                throw new IllegalArgumentException("Version must not be empty.");
+            }
+            if (packageFile == null || packageFile.isEmpty()) {
+                throw new IllegalArgumentException("Package file must not be empty.");
+            }
+            if (metaFile == null || metaFile.isEmpty()) {
+                throw new IllegalArgumentException("Metadata file must not be empty.");
+            }
+
+            if (!packageFile.getOriginalFilename().endsWith(".rep")) {
+                throw new IllegalArgumentException("Package file must be a .rep file.");
+            }
+            if (!metaFile.getOriginalFilename().endsWith(".json")) {
+                throw new IllegalArgumentException("Metadata file must be a .json file.");
+            }
+
+            long maxFileSize = 50 * 1024 * 1024;
+            if (packageFile.getSize() > maxFileSize) {
+                throw new IllegalArgumentException("Package file is too large. Max allowed size is 50MB.");
+            }
+
             Package pkg;
             try (InputStream metaStream = metaFile.getInputStream()) {
                 pkg = objectMapper.readValue(metaStream, Package.class);
