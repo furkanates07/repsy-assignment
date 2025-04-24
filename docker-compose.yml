@@ -39,6 +39,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ates
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin
+      REPSY_USERNAME: ${REPSY_USERNAME}
+      REPSY_PASSWORD: ${REPSY_PASSWORD}
       STORAGE_STRATEGY: object-storage
     volumes:
       - ./repsy_storage:/storage/repsy_storage

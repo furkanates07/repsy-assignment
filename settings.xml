@@ -1,0 +1,7 @@
+<servers>
+    <server>
+        <id>repsy-repo</id>
+        <username>${REPSY_USERNAME}</username>
+        <password>${REPSY_PASSWORD}</password>
+    </server>
+</servers>
