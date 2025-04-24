@@ -1,0 +1,11 @@
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/storage/strategy/filesystem/FileSystemStorageStrategy.java
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/config/StorageConfig.java
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/controller/PackageController.java
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/storage/strategy/StorageStrategy.java
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/RepsyApplication.java
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/model/Dependency.java
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/service/PackageService.java
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/storage/strategy/objectstorage/ObjectStorageStrategy.java
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/model/Package.java
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/repository/PackageRepository.java
+/Users/furkan/IdeaProjects/repsy/src/main/java/com/repsy/service/StorageService.java
