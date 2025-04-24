@@ -16,7 +16,6 @@ public class StorageConfig {
     @Bean
     public StorageStrategy storageStrategyBean(FileSystemStorageStrategy fileSystem,
                                                ObjectStorageStrategy objectStorage) {
-        System.out.println("here  " + storageStrategy);
         if ("object-storage".equalsIgnoreCase(storageStrategy)) {
             return objectStorage;
         } else if ("file-system".equalsIgnoreCase(storageStrategy)) {
