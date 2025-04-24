@@ -28,6 +28,26 @@ services:
     networks:
       - repsy-net
 
+  repsy:
+    image: repsy:latest
+    container_name: repsy
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/repsy_db
+      SPRING_DATASOURCE_USERNAME: furkan
+      SPRING_DATASOURCE_PASSWORD: ates
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      STORAGE_STRATEGY: object-storage
+    volumes:
+      - ./repsy_storage:/storage/repsy_storage
+    networks:
+      - repsy-net
+    depends_on:
+      - postgres
+      - minio
+
 networks:
   repsy-net:
 

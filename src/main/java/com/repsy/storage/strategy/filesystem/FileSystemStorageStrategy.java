@@ -13,7 +13,7 @@ import java.nio.file.*;
 @Component
 public class FileSystemStorageStrategy implements StorageStrategy {
 
-    @Value("${storage.root-path}")
+    @Value("${storageStrategy}")
     private Path root;
 
     @Override
