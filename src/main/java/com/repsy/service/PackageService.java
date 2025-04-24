@@ -7,6 +7,7 @@ import com.repsy.repository.PackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -26,6 +27,7 @@ public class PackageService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    @Transactional
     public void deployPackage(String packageName, String version, MultipartFile packageFile, MultipartFile metaFile) throws Exception {
         try {
             if (packageName == null || packageName.isBlank()) {
